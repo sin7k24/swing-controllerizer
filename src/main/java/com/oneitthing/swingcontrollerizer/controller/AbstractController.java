@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 
+import javax.swing.JDesktopPane;
 import javax.swing.JMenu;
 import javax.swing.SwingUtilities;
 
@@ -618,6 +619,8 @@ public abstract class AbstractController implements Controller, WindowOpenShutLi
      * @param addedComponent 追加されたコンポーネント
      */
     private void searchComponent(Component addedComponent) {
+        if(addedComponent instanceof JDesktopPane)
+        System.out.println(addedComponent);
         bindEvents(addedComponent);
         if (addedComponent instanceof Container) {
 

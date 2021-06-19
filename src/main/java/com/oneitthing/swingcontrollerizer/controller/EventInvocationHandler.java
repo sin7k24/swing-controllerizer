@@ -239,7 +239,6 @@ public class EventInvocationHandler implements InvocationHandler {
 			}
 		}
 
-		System.out.println("hogehogehogehoge = " + eventListenerProxy);
 		return result;
 	}
 
