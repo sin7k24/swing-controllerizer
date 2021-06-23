@@ -15,11 +15,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 
-import javax.swing.JDesktopPane;
 import javax.swing.JMenu;
 import javax.swing.SwingUtilities;
 
 import com.oneitthing.swingcontrollerizer.action.AbstractAction;
+import com.oneitthing.swingcontrollerizer.listener.ComponentCreationEvent;
+import com.oneitthing.swingcontrollerizer.listener.ComponentCreationListener;
 import com.oneitthing.swingcontrollerizer.listener.ContainerListenerImpl;
 import com.oneitthing.swingcontrollerizer.listener.WindowOpenShutListener;
 import com.oneitthing.swingcontrollerizer.manager.WindowManager;
@@ -372,9 +373,21 @@ public abstract class AbstractController implements Controller, WindowOpenShutLi
 
             for (Class<? extends EventListener> listenerType : listenerTypes) {
                 List<String> eventTypes = this.eventBinder.getEventTypes(componentName, listenerType);
+
+                // adhook
+                if (listenerType == ComponentCreationListener.class) {
+                    this.handlerFacade(
+                            new ComponentCreationEvent(addedComponent, 0),
+                            listenerType,
+                            "componentCreated",
+                            null,
+                            addedComponent);
+                    continue;
+                }
                 addListener(addedComponent, listenerType, eventTypes);
             }
         }
+
     }
 
     /**
@@ -619,8 +632,6 @@ public abstract class AbstractController implements Controller, WindowOpenShutLi
      * @param addedComponent 追加されたコンポーネント
      */
     private void searchComponent(Component addedComponent) {
-        if(addedComponent instanceof JDesktopPane)
-        System.out.println(addedComponent);
         bindEvents(addedComponent);
         if (addedComponent instanceof Container) {
 
@@ -629,9 +640,9 @@ public abstract class AbstractController implements Controller, WindowOpenShutLi
                 searchComponent(c);
             }
 
-            if(addedComponent instanceof JMenu) {
-                JMenu menu = (JMenu)addedComponent;
-                for(int i=0; i<menu.getMenuComponentCount(); i++) {
+            if (addedComponent instanceof JMenu) {
+                JMenu menu = (JMenu) addedComponent;
+                for (int i = 0; i < menu.getMenuComponentCount(); i++) {
                     searchComponent(menu.getMenuComponent(i));
                 }
             }

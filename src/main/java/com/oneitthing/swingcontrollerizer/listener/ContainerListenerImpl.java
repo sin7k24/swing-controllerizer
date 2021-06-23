@@ -5,8 +5,6 @@ import java.awt.Container;
 import java.awt.event.ContainerEvent;
 import java.awt.event.ContainerListener;
 
-import javax.swing.JInternalFrame;
-
 import com.oneitthing.swingcontrollerizer.controller.AbstractController;
 
 /**
@@ -97,8 +95,6 @@ public class ContainerListenerImpl implements ContainerListener {
 		Component addedComponent = e.getChild();
 		// 追加されたコンポーネント内に含まれるコンポーネントを全検出
 		searchComponent(addedComponent);
-
-		System.out.println(addedComponent instanceof JInternalFrame);
 	}
 
 	/**

@@ -355,7 +355,6 @@ public class BaseController extends AbstractController {
 	 */
 	@Override
 	public Object invoke(Class<? extends Action> actionClass, ParameterMapping parameterMapping) {
-	    System.out.println("invoke");
 		Object ret = null;
 
 		try {

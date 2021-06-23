@@ -41,10 +41,6 @@ import com.oneitthing.swingcontrollerizer.listener.WindowOpenShutListener;
  * 	});
  * </pre>
  *
-
-
- *
-
  */
 public class WindowManager {
 
@@ -147,8 +143,6 @@ public class WindowManager {
 		Toolkit.getDefaultToolkit().addAWTEventListener(new AWTEventListener(){
 			public void eventDispatched(AWTEvent evt) {
 				if(evt.getID() == WindowEvent.WINDOW_OPENED) {
-				    System.out.println("WINDOW_OPENED");
-
 					for(WindowOpenShutListener l : listenerList) {
 						windowList.add((Window)evt.getSource());
 						l.windowOpen(evt);
